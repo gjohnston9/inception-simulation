@@ -4,15 +4,15 @@ class Speaker:
         self.y = y
         # TODO: use variances to initialize ideology and diplomacy levels
 
-    def interacts_with(self, passerby):
+    def interacts_with(self, student):
         pass
         # TODO
 
-class Passerby:
+class Student:
     def __init__(self, ideology_variance, diplomacy_variance):
         pass
         # TODO: use variances to initialize ideology and diplomacy levels
 
-    def interacts_with(self, passerby):
+    def interacts_with(self, student):
         pass
         # TODO
