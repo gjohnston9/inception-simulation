@@ -1,0 +1,39 @@
+.root
+{
+	-fx-background-color: #1A2632;
+}
+.scroll-pane
+{
+	-fx-background: #151F29;
+	-fx-background-color: #151F29;
+}
+.scroll-bar:horizontal
+{
+	-fx-background-color: #151F29;
+}
+.scroll-bar:horizontal .thumb
+{
+	-fx-background-color: #252F59;
+}
+.scroll-bar:horizontal .increment-button
+{
+	-fx-background-color: #252F59;
+}
+.scroll-bar:horizontal .decrement-button
+{
+	-fx-background-color: #252F59;
+}
+.scroll-bar:horizontal .increment-arrow
+{
+	-fx-background-color: #151F29;
+}
+.scroll-bar:horizontal .decrement-arrow
+{
+	-fx-background-color: #151F29;
+}
+.button
+{
+	-fx-font-size: 20;
+	-fx-base: #151F29;
+	-fx-text-fill: #c8c8c8;
+}

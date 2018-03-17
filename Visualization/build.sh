@@ -1,2 +1,2 @@
 javac *.java &&
-jar cvfe Visualizer.jar Main *.class 
+jar cvfe Visualizer.jar Main *.class *.css
