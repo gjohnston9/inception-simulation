@@ -37,3 +37,13 @@
 	-fx-base: #151F29;
 	-fx-text-fill: #c8c8c8;
 }
+.label
+{
+	-fx-font-size: 40;
+	-fx-base: #151F29;
+	-fx-text-fill: #c8c8c8;
+}
+.rectangle
+{
+	-fx-fill: #2c2c2c;
+}

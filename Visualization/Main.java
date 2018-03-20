@@ -30,7 +30,7 @@ public class Main extends Application
 		Scene scene = new Scene(all, Globals.width, Globals.height);
 		scene.getStylesheets().add("style.css");
 		stage.setScene(scene);
-		stage.setTitle("ClassOpt");
+		stage.setTitle("Visualizer");
 		stage.setMaximized(true);
 		stage.show();
 	}

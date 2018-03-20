@@ -4,19 +4,56 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollBar;
+import javafx.application.Platform;
+import java.io.File;
+import java.util.HashMap;
 import java.util.Set;
 public class Timestep
 {
 	private HBox fileButtons;
 	private ScrollPane scrollPane;
 	private int pos = 0;
+	private HashMap<File, Tab> tabMap = new HashMap<>();
+	private Pane contentPane;
 	public void update()
 	{
 		while(true)
 		{
+			for(String s : Globals.directories)
+			{
+				File[] listOfFiles = new File(s).listFiles();
+				for(File f : listOfFiles)
+				{
+					if(!tabMap.containsKey(f))
+					{
+						try
+						{
+							Tab t = new Tab(f);
+							tabMap.put(f, t);
+							Platform.runLater(()->
+							{
+								String fname = f.getName();
+								fileButtons.getChildren().add(Style.formatButton(fname.substring(0, fname.indexOf(".")), 0, 0, Globals.tabWidth, Globals.tabHeight, ()->{
+									contentPane.getChildren().setAll(t.createPane());
+								}));
+							});
+						}
+						//If a file isn't written enough to be read at all
+						catch(IllegalArgumentException e)
+						{}
+					}
+					else if(tabMap.get(f).getTimeRead() < f.lastModified())
+					{
+						Platform.runLater(()->
+						{
+							tabMap.get(f).update();
+						});
+					}
+				}
+			}
 			try
 			{
-				Thread.sleep(1000);
+				Thread.sleep(Globals.updateTime);
 			}
 			catch(Exception e){}
 		}
@@ -27,6 +64,15 @@ public class Timestep
 		fileButtons.setPrefHeight(Globals.tabHeight);
 		fileButtons.setMaxHeight(Globals.tabHeight);
 		fileButtons.setMinHeight(Globals.tabHeight);
+		
+		contentPane = new Pane();
+		contentPane.setLayoutY(Globals.tabHeight);
+		contentPane.setPrefHeight(Globals.contentHeight);
+		contentPane.setMaxHeight(Globals.contentHeight);
+		contentPane.setMinHeight(Globals.contentHeight);
+		contentPane.setPrefWidth(Globals.width);
+		contentPane.setMaxWidth(Globals.width);
+		contentPane.setMinWidth(Globals.width);
 		
 		scrollPane = new ScrollPane();
 		scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
@@ -56,8 +102,8 @@ public class Timestep
 	public Pane getPane()
 	{
 		Pane p  = new Pane();
-		fileButtons.getChildren().add(Style.formatButton("Test", 0, 0, Globals.tabWidth, Globals.tabHeight, ()->{}));
 		p.getChildren().add(scrollPane);
+		p.getChildren().add(contentPane);
 		return p;
 	}
 }
