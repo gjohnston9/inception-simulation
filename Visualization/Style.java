@@ -17,6 +17,23 @@ public class Style
 		b.setOnAction(a->act.act());
 		return b;
 	}
+	public static ComboBox<String> formatComboBox(double h, Action act)
+	{
+		ComboBox<String> b = new ComboBox<>();
+		b.setPrefHeight(h);
+		b.setMaxHeight(h);
+		b.setMinHeight(h);
+		b.setOnAction(a->act.act());
+		return b;
+	}
+	public static Label formatLabel(String label, double h)
+	{
+		Label b = new Label(label);
+		b.setPrefHeight(h);
+		b.setMaxHeight(h);
+		b.setMinHeight(h);
+		return b;
+	}
 	public static Label formatLabel(String label, double x, double y, double w, double h)
 	{
 		Label b = new Label(label);

@@ -15,8 +15,8 @@ public class Tab
 	private Pane chart;
 	private Pane base;
 	private int index = -1;
-	private HashMap<String, Double> inputs = new HashMap<>();
-	private HashMap<String, Double> outputs = new HashMap<>();
+	public HashMap<String, Double> inputs = new HashMap<>();
+	public HashMap<String, Double> outputs = new HashMap<>();
 	private Canvas timechart;
 	public Tab(File f)
 	{
@@ -42,8 +42,10 @@ public class Tab
 		timechart.setLayoutY(0);
 		timechart.setOnMousePressed((tp)->
 		{
+			int oldindex = index;
 			index = (int)(tp.getY()*timeSlices.size() / Globals.timeChartHeight);
-			paint();
+			if(index!=oldindex)
+				paint();
 		});
 		timechart.setOnMouseDragged((tp)->
 		{
@@ -95,7 +97,7 @@ public class Tab
 			gc.setFill(Globals.toColor(Globals.minColor));
 			gc.fillRect(0,i,x, 1);
 			gc.setFill(Globals.toColor(Globals.getColor(0.5)));
-			gc.fillRect(x,i,ts.percentc*Globals.timeChartWidth, 1);
+			gc.fillRect(x,i,ts.percentc*Globals.timeChartWidth, 3);
 		}
 		gc.setFill(Globals.toColor(0, 0, 0));
 		gc.fillRect(0,(int)((0.5+index)*Globals.timeChartHeight/timeSlices.size())-1,Globals.timeChartWidth, 3);
@@ -152,7 +154,7 @@ public class Tab
 				while(scan.hasNextLine())
 				{
 					String[] parts = scan.nextLine().split(":");
-					inputs.put(parts[0], Double.parseDouble(parts[1]));
+					outputs.put(parts[0], Double.parseDouble(parts[1]));
 				}
 			}
 			catch(Exception e)

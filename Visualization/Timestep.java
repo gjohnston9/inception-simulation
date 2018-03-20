@@ -13,7 +13,7 @@ public class Timestep
 	private HBox fileButtons;
 	private ScrollPane scrollPane;
 	private int pos = 0;
-	private HashMap<File, Tab> tabMap = new HashMap<>();
+	public HashMap<File, Tab> tabMap = new HashMap<>();
 	private Pane contentPane;
 	public void update()
 	{

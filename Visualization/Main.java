@@ -25,7 +25,7 @@ public class Main extends Application
 		Chart chart = new Chart();
 		all.getChildren().add(pane);
 		all.getChildren().add(Style.formatButton("Timestep", 0, 0, Globals.width/2, Globals.modeHeight, ()->pane.getChildren().setAll(timestep.getPane())));
-		all.getChildren().add(Style.formatButton("Analytics", Globals.width/2, 0,Globals.width/2, Globals.modeHeight, ()->pane.getChildren().setAll(chart.getPane())));
+		all.getChildren().add(Style.formatButton("Analytics", Globals.width/2, 0,Globals.width/2, Globals.modeHeight, ()->pane.getChildren().setAll(chart.getPane(timestep.tabMap))));
 		pane.getChildren().setAll(timestep.getPane());
 		Scene scene = new Scene(all, Globals.width, Globals.height);
 		scene.getStylesheets().add("style.css");

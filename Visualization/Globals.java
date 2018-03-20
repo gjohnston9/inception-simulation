@@ -24,12 +24,14 @@ public class Globals
 	public static final double nameLabelWidthPercent = 0.5;
 	public static final int updateTime = 1000;
 	public static final int cellCutoff = 120*120;
+	public static final double axisHeightPercent = 0.1;
 	//computed constants
 	public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final double width = screenSize.getWidth();
 	public static final double height = screenSize.getHeight() - bufferHeight;
 	public static final double modeHeight = modeHeightPercent*height;
 	public static final double tabHeight = tabHeightPercent*height;
+	public static final double axisHeight = axisHeightPercent*height;
 	public static final double tabWidth = tabWidthPercent*width;
 	public static final double statusBarHeight = statusBarHeightPercent*height;
 	public static final double nextPrevButtonHeight = nextPrevButtonHeightPercent*height;
