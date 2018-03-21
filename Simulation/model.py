@@ -91,9 +91,36 @@ Please enter a number less than or equal to %d." % (num_speakers, num_speakers_l
         # the second iteration to update change in location (if such a change can occur) for a given agent.
         # So first, go over speakers, and then look into iterating over students
         for speaker in self.speakers:
-            print("at speaker %s" % (speaker.uid))
+            print("at speaker: %s" % (speaker.uid))
             for student in self.find_students(speaker.x, speaker.y, self.speaker_range):
                 speaker.interacts_with(student)
+
+        # Now for the second iteration, update position of the students, follows 
+        # a random walk
+        for student in self.students:
+            print("at student: %s, current position x: %d, y: %d" % (student.uid, student.x, student.y))
+            self.move_student(student)
+            print("still at student: %s, new position x: %d, y: %d" % (student.uid, student.x, student.y))
+
+    # Function to search for unoccupied spaces surrounding given student and randomly select one of the
+    # available spaces to move the student to. Currently have hardcoded max distance to move to 2, 
+    # might be interesting to make this a parameter to the experiment
+    def move_student(self, student):
+        max_move_distance = 2
+        center_x = student.x
+        center_y = student.y
+        x_min = max(center_x - max_move_distance, 0)
+        y_min = max(center_y - max_move_distance, 0)
+        x_max = min(center_x + max_move_distance + 1, GRID_SIZE)
+        y_max = min(center_y + max_move_distance + 1, GRID_SIZE)
+        found_open_space = set()
+        for r in range(x_min, x_max):
+            for c in range(y_min, y_max):
+                if not isinstance(self.grid[r,c], Student) and not isinstance(self.grid[r,c], Speaker):
+                    # print("found open space, added to set of possibilities")
+                    found_open_space.add((r, c))
+        space_chosen = random.sample(found_open_space, 1)
+        student.set_position(space_chosen[0][0], space_chosen[0][1])
 
     def find_students(self, center_x, center_y, max_range):
         # Returns a list of all people who are at most max_range units away
