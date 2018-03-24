@@ -1,6 +1,7 @@
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.geometry.Pos;
 public class Style
 {
 	public static Button formatButton(String label, double x, double y, double w, double h, Action act)
@@ -36,6 +37,14 @@ public class Style
 	}
 	public static Label formatLabel(String label, double x, double y, double w, double h)
 	{
+		return formatLabel(label, x, y, w, h, false);
+	}
+	public static  Label formatLabel(String label, double x, double y, double w, double h, boolean centered)
+	{
+		return formatLabel(label, x, y, w, h, centered, false);
+	}
+	public static  Label formatLabel(String label, double x, double y, double w, double h, boolean centered, boolean rotated)
+	{
 		Label b = new Label(label);
 		b.setLayoutX(x);
 		b.setLayoutY(y);
@@ -45,6 +54,10 @@ public class Style
 		b.setPrefHeight(h);
 		b.setMaxHeight(h);
 		b.setMinHeight(h);
+		if(centered)
+			b.setAlignment(Pos.CENTER);
+		if(rotated)
+			b.setRotate(-90);
 		return b;
 	}
 	public static Rectangle formatRectangle(double x, double y, double w, double h, Color fill)

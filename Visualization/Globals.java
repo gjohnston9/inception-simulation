@@ -25,6 +25,16 @@ public class Globals
 	public static final int updateTime = 1000;
 	public static final int cellCutoff = 120*120;
 	public static final double axisHeightPercent = 0.1;
+	public static final double threshold = 0.0000001;
+	public static final double chartHeightPercent = 0.7;
+	public static final double chartXScalePercent = 0.04;
+	public static final double chartYScalePercent = 0.06;
+	public static final double chartWidthPercent = 0.85;
+	public static final int[] chartBackgroundColor = {14, 14, 24};
+	public static final int gridlineWidth = 2;
+	public static final int[] chartLineColor = {24, 24, 54};
+	public static final int pointDiameter = 11;
+	public static final int[] pointColor = {150, 150, 200};
 	//computed constants
 	public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final double width = screenSize.getWidth();
@@ -44,6 +54,14 @@ public class Globals
 	public static final double contentHeight = height - (modeHeight + tabHeight);
 	public static final double nameLabelWidth = nameLabelWidthPercent * width;
 	public static final double timeStampWidth = gridWidth - nameLabelWidth;
+	public static final double chartHeight = chartHeightPercent*height;
+	public static final double chartWidth = chartWidthPercent*width;
+	public static final double chartX = width - chartWidth;
+	public static final double chartXScale = chartXScalePercent*height;
+	public static final double chartXLabelY = chartXScale + chartHeight + graphAxesMenuHeight;
+	public static final double chartXLabelHeight = height - (chartXScale + chartHeight + modeHeight + graphAxesMenuHeight);
+	public static final double chartYScale = chartYScalePercent*width;
+	public static final double chartYLabelHeight = width - (chartYScale + chartWidth);
 	//helper methods
 	public static int[] getColor(double val)
 	{
