@@ -18,9 +18,9 @@ public class Style
 		b.setOnAction(a->act.act());
 		return b;
 	}
-	public static ComboBox<String> formatComboBox(double h, Action act)
+	public static ChoiceBox<String> formatChoiceBox(double h, Action act)
 	{
-		ComboBox<String> b = new ComboBox<>();
+		ChoiceBox<String> b = new ChoiceBox<>();
 		b.setPrefHeight(h);
 		b.setMaxHeight(h);
 		b.setMinHeight(h);

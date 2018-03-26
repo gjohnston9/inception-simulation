@@ -4,14 +4,14 @@ import java.util.HashSet;
 import java.util.List;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.HBox;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.ChoiceBox;
 import java.util.Arrays;
 public class Chart
 {
 	private HashMap<File, Tab> tabs;
 	private Pane outer = new Pane();
-	private ComboBox<String> inbox = Style.formatComboBox(Globals.graphAxesMenuHeight, ()->getPane(tabs));
-	private ComboBox<String> outbox = Style.formatComboBox(Globals.graphAxesMenuHeight, ()->getPane(tabs));
+	private ChoiceBox<String> inbox = Style.formatChoiceBox(Globals.graphAxesMenuHeight, ()->getPane(tabs));
+	private ChoiceBox<String> outbox = Style.formatChoiceBox(Globals.graphAxesMenuHeight, ()->getPane(tabs));
 	private boolean inprogress = false;
 	private String in = "";
 	private String out = "";
