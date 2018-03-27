@@ -15,6 +15,8 @@ speaker_diplomacy_std_deviation = 25
 student_ideology_std_deviation = 25
 speaker_ideology_std_deviation = 25
 
+random_seed = 10
+
 test_model = Model(
 	population_density,
     students_to_speakers_ratio,
@@ -28,5 +30,7 @@ test_model = Model(
     student_diplomacy_std_deviation,
     speaker_diplomacy_std_deviation,
     student_ideology_std_deviation,
-    speaker_ideology_std_deviation)
+    speaker_ideology_std_deviation,
+
+    random_seed)
 test_model.run_model()
