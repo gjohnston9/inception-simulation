@@ -40,7 +40,11 @@ public class Timestep
 						}
 						//If a file isn't written enough to be read at all
 						catch(IllegalArgumentException e)
-						{}
+						{
+						}
+						catch(Exception e)
+						{
+						}
 					}
 					else if(tabMap.get(f).getTimeRead() < f.lastModified())
 					{

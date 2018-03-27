@@ -6,6 +6,8 @@ import java.util.Scanner;
 import javafx.scene.canvas.Canvas;
 import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
+import java.util.Arrays;
+import javafx.scene.image.PixelWriter;
 public class Tab
 {
 	private ArrayList<TimeSlice> timeSlices = new ArrayList<>();
@@ -20,6 +22,7 @@ public class Tab
 	private Canvas timechart;
 	public Tab(File f)
 	{
+		
 		timestamplabel = Style.formatLabel("Time: 0", Globals.nameLabelWidth, 0, Globals.timeStampWidth, Globals.statusBarHeight);
 		this.time = System.currentTimeMillis();
 		chart = new Pane();
@@ -87,17 +90,31 @@ public class Tab
 		chart.getChildren().add(base);
 		t.applyTo(chart);
 		timestamplabel.setText("Time: "+t.timestamp);
-		GraphicsContext gc = timechart.getGraphicsContext2D();
-		gc.setFill(Globals.toColor(Globals.maxColor));
-			gc.fillRect(0,0,Globals.timeChartWidth, Globals.timeChartHeight);
+ 		GraphicsContext gc = timechart.getGraphicsContext2D();
+// 		gc.setFill(Globals.toColor(Globals.maxColor));
+// 			gc.fillRect(0,0,Globals.timeChartWidth, Globals.timeChartHeight);
+		PixelWriter pw = timechart.getGraphicsContext2D().getPixelWriter();
 		for(int i = 0; i < Globals.timeChartHeight; i++)
 		{
 			TimeSlice ts = timeSlices.get((int)(i*timeSlices.size()/Globals.timeChartHeight));
-			double x = ts.percentl*Globals.timeChartWidth;
-			gc.setFill(Globals.toColor(Globals.minColor));
-			gc.fillRect(0,i,x, 1);
-			gc.setFill(Globals.toColor(Globals.getColor(0.5)));
-			gc.fillRect(x,i,ts.percentc*Globals.timeChartWidth, 3);
+			double[] people = new double[ts.people.size()];
+			for(int j = 0; j < people.length; j++)
+			{
+				people[j] = ts.people.get(j).v;
+			}
+			Arrays.sort(people);
+			for(int j = 0; j < Globals.timeChartWidth; j++)
+			{
+				double d = people[(int)(j*people.length*1.0/Globals.timeChartWidth)];
+				int[] igrs = Globals.getColor(d);
+				pw.setColor(j, i, Globals.toColor(igrs));
+			}
+
+// 			double x = ts.percentl*Globals.timeChartWidth;
+// 			gc.setFill(Globals.toColor(Globals.minColor));
+// 			gc.fillRect(0,i,x, 1);
+// 			gc.setFill(Globals.toColor(Globals.getColor(0.5)));
+// 			gc.fillRect(x,i,ts.percentc*Globals.timeChartWidth, 3);
 		}
 		gc.setFill(Globals.toColor(0, 0, 0));
 		gc.fillRect(0,(int)((0.5+index)*Globals.timeChartHeight/timeSlices.size())-1,Globals.timeChartWidth, 3);
@@ -158,7 +175,10 @@ public class Tab
 				}
 			}
 			catch(Exception e)
-			{}
+			{
+				e.printStackTrace();
+				System.out.println(e);
+			}
 			if(index == -1)
 				index = timeSlices.size() - 1;
 			paint();

@@ -3,31 +3,35 @@ import java.util.ArrayList;
 public class TimeSlice
 {
 	public final String timestamp;
-	public double percentl;
-	public double percentc;
-	public double percentr;
+	
+// 	public double percentl;
+// 	public double percentc;
+// 	public double percentr;
+
 	private double cellwidth;
 	private double cellheight;
-	private ArrayList<Person> people = new ArrayList<>();
+	public ArrayList<Person> people = new ArrayList<>();
 	public TimeSlice(String text, double width, double height)
 	{
 		cellwidth = width;
 		cellheight = height;
 		String[] parts = text.split(":");
 		timestamp = parts[0];
-		parts = parts[1].split("/");
-		percentl = Double.parseDouble(parts[0]);
-		percentc = Double.parseDouble(parts[1]);
-		percentr = Double.parseDouble(parts[2]);
-		double t = percentc + percentl + percentr;
-		if(t < 0.00001)
-		{
-			percentl = percentc = percentr = t = 1;
-		}
-		percentc/=t;
-		percentl/=t;
-		percentr/=t;
-		parts = parts[3].split("\\)");
+
+// 		parts = parts[1].split("/");
+// 		percentl = Double.parseDouble(parts[0]);
+// 		percentc = Double.parseDouble(parts[1]);
+// 		percentr = Double.parseDouble(parts[2]);
+// 		double t = percentc + percentl + percentr;
+// 		if(t < 0.00001)
+// 		{
+// 			percentl = percentc = percentr = t = 1;
+// 		}
+// 		percentc/=t;
+// 		percentl/=t;
+// 		percentr/=t;
+
+		parts = parts[1].split("\\)");
 		for(int i = 0; i < parts.length; i++)
 		{
 			people.add(new Person(parts[i].substring(1).split(",")));
@@ -41,7 +45,7 @@ public class TimeSlice
 				Globals.toColor(Globals.getColor(p.v))));
 		}
 	}
-	private class Person
+	public class Person
 	{
 		public final int x;
 		public final int y;
