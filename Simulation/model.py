@@ -27,7 +27,8 @@ class Model:
         student_diplomacy_std_deviation,
         speaker_diplomacy_std_deviation,
         student_ideology_std_deviation,
-        speaker_ideology_std_deviation):
+        speaker_ideology_std_deviation,
+        random_seed=None):
         """
         (float) population_density: percentage of tiles on the grid that will be filled; should be a float,
             between 0.05 and 0.95 (inclusive)
@@ -52,6 +53,8 @@ class Model:
         num_people = int(population_density * num_tiles)
         num_speakers = int(num_people / (students_to_speakers_ratio + 1))
         num_students = num_people - num_speakers
+        np.random.seed(random_seed)
+        random.seed(random_seed)
 
         for val in (expected_student_diplomacy, expected_speaker_diplomacy, expected_abs_student_ideology, expected_abs_speaker_ideology):
             assert 0 < val < 100, "expected_student_diplomacy, expected_speaker_diplomacy, expected_abs_student_ideology, expected_abs_speaker_ideology "\
@@ -130,7 +133,9 @@ class Model:
             student_diplomacy_std_deviation,
             speaker_diplomacy_std_deviation,
             student_ideology_std_deviation,
-            speaker_ideology_std_deviation])) + ".vis"
+            speaker_ideology_std_deviation,
+
+            random_seed])) + ".vis"
 
         self.log_filename = os.path.join("..", "Logs", self.log_filename)
 
@@ -148,6 +153,7 @@ class Model:
             f.write("speaker_diplomacy_std_deviation:{}\n".format(speaker_diplomacy_std_deviation))
             f.write("student_ideology_std_deviation:{}\n".format(student_ideology_std_deviation))
             f.write("speaker_ideology_std_deviation:{}\n".format(speaker_ideology_std_deviation))
+            f.write("random_seed:{}\n".format(random_seed))
 
             f.write("speakers\n")
 
