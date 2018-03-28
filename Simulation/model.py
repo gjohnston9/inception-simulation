@@ -167,6 +167,7 @@ class Model:
         for t in range(5):
             print("At timestep %d" % (t))
             self.step(t)
+        self.write_final_log_portion()
 
     # So within each step can have the iteration to check for the interactions and then 
     # another iteration to check for the steps to take
@@ -196,7 +197,8 @@ class Model:
     def write_final_log_portion(self):
         with open(self.log_filename, "a") as f:
             f.write("end\n")
-        # TODO: add experiment outputs
+            # TODO: add experiment outputs
+            f.write("output1:60\n")
 
     # Function to search for unoccupied spaces surrounding given student and randomly select one of the
     # available spaces to move the student to. Currently have hardcoded max distance to move to 2, 
