@@ -109,9 +109,8 @@ class Model:
         for r in range(GRID_SIZE):
             for c in range(GRID_SIZE):
                 if isinstance(self.grid[r,c], Student):
-                    self.grid[r,c].set_position(r, c)
-                    # Add found student to array of students that will be used later on to iterate over?
                     self.students.append(self.grid[r,c])
+                    # Add found student to array of students that will be used later on to iterate over?
                     # print("Found student at row: %d, column: %d, x: %d, y: %d, uid: %s" % \
                     #     (r, c, self.grid[r,c].x, self.grid[r,c].y, self.grid[r,c].uid))
                 if isinstance(self.grid[r,c], Speaker):
@@ -187,10 +186,13 @@ class Model:
 
         # Now for the second iteration, update position of the students, follows 
         # a random walk
-        for student in self.students:
-            # print("at student: %s, current position x: %d, y: %d" % (student.uid, student.x, student.y))
-            self.move_student(student)
-            # print("still at student: %s, new position x: %d, y: %d" % (student.uid, student.x, student.y))
+        for x in range(GRID_SIZE):
+            for y in range(GRID_SIZE):
+                if isinstance(self.grid[x,y], Student):
+                    # print("at student: %s, current position x: %d, y: %d" % (student.uid, student.x, student.y))
+                    student = self.grid[x,y]
+                    self.move_student(student, x, y)
+                    # print("still at student: %s, new position x: %d, y: %d" % (student.uid, student.x, student.y))
 
         self.write_timestep_to_log(t)
 
@@ -208,10 +210,8 @@ class Model:
     # Function to search for unoccupied spaces surrounding given student and randomly select one of the
     # available spaces to move the student to. Currently have hardcoded max distance to move to 2, 
     # might be interesting to make this a parameter to the experiment
-    def move_student(self, student):
+    def move_student(self, student, center_x, center_y):
         max_move_distance = 1
-        center_x = student.x
-        center_y = student.y
         assert self.grid[center_x, center_y] == student
         x_min = max(center_x - max_move_distance, 0)
         y_min = max(center_y - max_move_distance, 0)
@@ -223,10 +223,10 @@ class Model:
             for y in range(y_min, y_max):
                 if self.grid[x,y] == None:
                     found_open_space.add((x,y))
+
         if not len(found_open_space) == 0:
             space_chosen = random.sample(found_open_space, 1)[0]
             new_x, new_y = space_chosen
-            student.set_position(new_x, new_y)
             self.grid[new_x, new_y] = student
             self.grid[center_x, center_y] = None
             # print("moved Student from ({},{}) to ({},{})".format(center_x, center_y, new_x, new_y))
