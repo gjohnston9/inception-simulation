@@ -212,19 +212,26 @@ class Model:
         max_move_distance = 1
         center_x = student.x
         center_y = student.y
+        assert self.grid[center_x, center_y] == student
         x_min = max(center_x - max_move_distance, 0)
         y_min = max(center_y - max_move_distance, 0)
         x_max = min(center_x + max_move_distance + 1, GRID_SIZE)
         y_max = min(center_y + max_move_distance + 1, GRID_SIZE)
         found_open_space = set()
-        for r in range(x_min, x_max):
-            for c in range(y_min, y_max):
-                if self.grid[r,c] == None:
-                    print("student at ({},{}) can move to ({},{})".format(student.x, student.y, r, c))
-                    found_open_space.add((r, c))
+
+        for x in range(x_min, x_max):
+            for y in range(y_min, y_max):
+                if self.grid[x,y] == None:
+                    found_open_space.add((x,y))
         if not len(found_open_space) == 0:
-            space_chosen = random.sample(found_open_space, 1)
-            student.set_position(space_chosen[0][0], space_chosen[0][1])
+            space_chosen = random.sample(found_open_space, 1)[0]
+            new_x, new_y = space_chosen
+            student.set_position(new_x, new_y)
+            self.grid[new_x, new_y] = student
+            self.grid[center_x, center_y] = None
+            # print("moved Student from ({},{}) to ({},{})".format(center_x, center_y, new_x, new_y))
+            assert (center_x, center_y) != (new_x, new_y)
+            assert self.grid[new_x, new_y] == student
 
     def find_students(self, center_x, center_y, max_range):
         # Returns a list of all people who are at most max_range units away
@@ -235,10 +242,10 @@ class Model:
         y_max = min(center_y + max_range + 1, GRID_SIZE)
         # Using a set so that duplicate items are not added
         found_students = set()
-        for r in range(x_min, x_max):
-            for c in range(y_min, y_max):
-                if isinstance(self.grid[r,c], Student):
+        for x in range(x_min, x_max):
+            for y in range(y_min, y_max):
+                if isinstance(self.grid[x,y], Student):
                     # print("found student %s at r: %d, c: %d" % (self.grid[r,c].uid, r, c))
-                    found_students.add(self.grid[r,c])
+                    found_students.add(self.grid[x,y])
         # print("students found:", found_students)
         return found_students
