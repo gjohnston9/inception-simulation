@@ -15,6 +15,7 @@ GRID_SIZE = 10
 class Model:
     def __init__(
         self,
+        experiment_name,
         population_density,
         students_to_speakers_ratio,
         speaker_range,
@@ -30,6 +31,8 @@ class Model:
         speaker_ideology_std_deviation,
         random_seed=None):
         """
+        (string) experiment_name: name of the experiment being run
+
         (float) population_density: percentage of tiles on the grid that will be filled; should be a float,
             between 0.05 and 0.95 (inclusive)
         (int) students_to_speakers_ratio: number of students for each speaker; should be an int between 20 and
@@ -121,6 +124,8 @@ class Model:
         # print(self.speakers)
 
         self.log_filename = "_".join(map(str, [
+            experiment_name,
+
             population_density,
             students_to_speakers_ratio,
             speaker_range,
@@ -214,8 +219,8 @@ class Model:
         found_open_space = set()
         for r in range(x_min, x_max):
             for c in range(y_min, y_max):
-                if not isinstance(self.grid[r,c], Student) and not isinstance(self.grid[r,c], Speaker):
-                    # print("found open space, added to set of possibilities")
+                if self.grid[r,c] == None:
+                    print("student at ({},{}) can move to ({},{})".format(student.x, student.y, r, c))
                     found_open_space.add((r, c))
         if not len(found_open_space) == 0:
             space_chosen = random.sample(found_open_space, 1)
