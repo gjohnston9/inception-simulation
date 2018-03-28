@@ -45,4 +45,3 @@ class Student:
 
     def __repr__(self):
         return "Student: ({},{},{})".format(self.x, self.y, self.ideology)
-

@@ -1,6 +1,8 @@
 #!/usr/bin/env python2
 from model import Model
 
+experiment_name = "test1"
+
 population_density = 0.5
 students_to_speakers_ratio = 20
 speaker_range = 2
@@ -18,7 +20,9 @@ speaker_ideology_std_deviation = 25
 random_seed = 10
 
 test_model = Model(
-	population_density,
+    experiment_name,
+
+    population_density,
     students_to_speakers_ratio,
     speaker_range,
 
