@@ -201,7 +201,8 @@ class Model:
     def write_final_log_portion(self):
         with open(self.log_filename, "a") as f:
             f.write("end\n")
-        # TODO: add experiment outputs
+            # TODO: add experiment outputs
+            f.write("output1:60\n")
 
     # Function to search for unoccupied spaces surrounding given student and randomly select one of the
     # available spaces to move the student to. Currently have hardcoded max distance to move to 2, 
