@@ -189,18 +189,9 @@ class Model:
         self.write_timestep_to_log(t)
 
     def write_timestep_to_log(self, t):
-        num_negative, num_neutral, num_positive = 0, 0, 0
-        for student in self.students:
-            if student.ideology < -self.expected_abs_student_ideology:
-                num_negative += 1
-            elif student.ideology < self.expected_abs_student_ideology:
-                num_neutral += 1
-            else:
-                num_positive += 1
-        zones_string = "{}/{}/{}/".format(num_negative, num_neutral, num_positive)
         student_strings = "".join(map(str, self.students))
         with open(self.log_filename, "a") as f:
-            f.write("{}:{}{}\n".format(t, zones_string, "".join(student_strings)))
+            f.write("{}:{}\n".format(t, "".join(student_strings)))
     
     def write_final_log_portion(self):
         with open(self.log_filename, "a") as f:
@@ -211,7 +202,7 @@ class Model:
     # available spaces to move the student to. Currently have hardcoded max distance to move to 2, 
     # might be interesting to make this a parameter to the experiment
     def move_student(self, student):
-        max_move_distance = 2
+        max_move_distance = 1
         center_x = student.x
         center_y = student.y
         x_min = max(center_x - max_move_distance, 0)
@@ -224,8 +215,9 @@ class Model:
                 if not isinstance(self.grid[r,c], Student) and not isinstance(self.grid[r,c], Speaker):
                     # print("found open space, added to set of possibilities")
                     found_open_space.add((r, c))
-        space_chosen = random.sample(found_open_space, 1)
-        student.set_position(space_chosen[0][0], space_chosen[0][1])
+        if not len(found_open_space) == 0:
+            space_chosen = random.sample(found_open_space, 1)
+            student.set_position(space_chosen[0][0], space_chosen[0][1])
 
     def find_students(self, center_x, center_y, max_range):
         # Returns a list of all people who are at most max_range units away
