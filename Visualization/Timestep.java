@@ -42,9 +42,6 @@ public class Timestep
 						catch(IllegalArgumentException e)
 						{
 						}
-						catch(Exception e)
-						{
-						}
 					}
 					else if(tabMap.get(f).getTimeRead() < f.lastModified())
 					{

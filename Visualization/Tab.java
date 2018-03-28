@@ -132,7 +132,7 @@ public class Tab
 			String s = null;
 			while(!(s=scan.nextLine()).equals("speakers"))
 			{
-				String[] parts = s.split(":");
+				String[] parts = s.replaceAll("_"," ").split(":");
 				inputs.put(parts[0], Double.parseDouble(parts[1]));
 			}
 			double width = inputs.get("width");
@@ -170,21 +170,19 @@ public class Tab
 				}
 				while(scan.hasNextLine())
 				{
-					String[] parts = scan.nextLine().split(":");
+					String[] parts = scan.nextLine().replaceAll("_"," ").split(":");
 					outputs.put(parts[0], Double.parseDouble(parts[1]));
 				}
 			}
 			catch(Exception e)
 			{
-				e.printStackTrace();
-				System.out.println(e);
 			}
 			if(index == -1)
 				index = timeSlices.size() - 1;
 			paint();
 		}
 		catch(Exception e)
-		{e.printStackTrace(); System.out.println(e);
+		{
 			throw new IllegalArgumentException();
 		}
 	}
