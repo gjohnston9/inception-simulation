@@ -6,7 +6,7 @@ import math
 import os
 import sys
 
-GRID_SIZE = 10
+GRID_SIZE = 25
 
 # Updating the model to step over each agent in the simulation rather than each square
 # So the model will have a 2D array that it uses to keep track of each agent in the simulation.
@@ -169,7 +169,7 @@ class Model:
 
 
     def run_model(self):
-        for t in range(5):
+        for t in range(500):
             print("At timestep %d" % (t))
             self.step(t)
         self.write_final_log_portion()
@@ -184,6 +184,8 @@ class Model:
             # print("at speaker: %s" % (speaker.uid))
             for student in self.find_students(speaker.x, speaker.y, self.speaker_range):
                 speaker.interacts_with(student)
+        for student in self.students:
+            student.interacts_with(random.sample(self.find_students(student.x, student.y, 1), 1)[0])
 
         # Now for the second iteration, update position of the students, follows 
         # a random walk

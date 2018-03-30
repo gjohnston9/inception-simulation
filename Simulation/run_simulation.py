@@ -3,7 +3,7 @@ from model import Model
 
 experiment_name = "test1"
 
-population_density = 0.5
+population_density = 0.3
 students_to_speakers_ratio = 20
 speaker_range = 2
 

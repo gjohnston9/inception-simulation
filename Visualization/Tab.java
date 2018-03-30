@@ -183,7 +183,7 @@ public class Tab
 		}
 		catch(Exception e)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(e);
 		}
 	}
 }
