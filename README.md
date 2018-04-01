@@ -1,7 +1,7 @@
 ### Setting up
 
 - For the simulation, you will need Python 2 and Python's NumPy library.
-- For the visualization software, you will need Java?
+- For the visualization software, you will need Java 8 with JavaFX. Using the Oracle JDK instead of OpenJDK will make this easier, since JavaFX comes bundled with the Oracle JDK.
 
 ### Running the code
 
