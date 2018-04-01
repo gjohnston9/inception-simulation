@@ -8,6 +8,11 @@ import sys
 
 GRID_SIZE = 25
 
+# We want to see how many people end up believing strongly in one ideology or the other,
+# vs. how many end up in a neutral zone. Anyone with abs(ideology_score) <= NEUTRAL_CUTOFF
+# will be considered neutral.
+NEUTRAL_CUTOFF = 30
+
 # Updating the model to step over each agent in the simulation rather than each square
 # So the model will have a 2D array that it uses to keep track of each agent in the simulation.
 # For the first loop over the agents and update the interactions. 
@@ -123,6 +128,10 @@ class Model:
         # print(self.students)
         # print(self.speakers)
 
+        ### output statistics
+        self.total_ideology_change = 0
+        self.initial_polarization = self.count_polarized()
+
         self.log_filename = "_".join(map(str, [
             experiment_name,
 
@@ -167,6 +176,12 @@ class Model:
 
             f.write("begin\n")
 
+    def count_polarized(self):
+        num_polarized = 0
+        for student in self.students:
+            if abs(student.ideology) > NEUTRAL_CUTOFF: # then this student is not ideologically neutral
+                num_polarized += 1
+        return num_polarized
 
     def run_model(self):
         for t in range(500):
@@ -183,9 +198,11 @@ class Model:
         for speaker in self.speakers:
             # print("at speaker: %s" % (speaker.uid))
             for student in self.find_students(speaker.x, speaker.y, self.speaker_range):
-                speaker.interacts_with(student)
+                change = speaker.interacts_with(student)
+                self.total_ideology_change += change
         for student in self.students:
-            student.interacts_with(random.sample(self.find_students(student.x, student.y, 1), 1)[0])
+            change = student.interacts_with(random.sample(self.find_students(student.x, student.y, 1), 1)[0])
+            self.total_ideology_change += change
 
         # Now for the second iteration, update position of the students, follows 
         # a random walk
@@ -202,10 +219,15 @@ class Model:
             f.write("{}:{}\n".format(t, "".join(student_strings)))
     
     def write_final_log_portion(self):
+        average_ideology_change = self.total_ideology_change / (1.0 * len(self.students))
+        final_polarization = self.count_polarized()
+        change_in_polarization = final_polarization - self.initial_polarization
         with open(self.log_filename, "a") as f:
             f.write("end\n")
             # TODO: add experiment outputs
-            f.write("output1:60\n")
+            f.write("total_ideology_change:{}\n".format(self.total_ideology_change))
+            f.write("average_ideology_change:{}\n".format(average_ideology_change))
+            f.write("change_in_polarization:{}\n".format(change_in_polarization))
 
     # Function to search for unoccupied spaces surrounding given student and randomly select one of the
     # available spaces to move the student to. Currently have hardcoded max distance to move to 2, 

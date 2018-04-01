@@ -32,7 +32,7 @@ class Speaker:
             # (student.x, student.y, self.x, self.y))
         # print("in interacts with, student's ideology: %f, diplomacy: %f, speaker's ideology: %f,\
 # speaker's diplomacy: %f" % (student.ideology, student.diplomacy, self.ideology, self.diplomacy))
-        # if student.ideology < -3 and self.ideology > 3
+        return abs(agreement_score)
 
     def set_position(self, x, y):
         self.x = x
@@ -74,6 +74,8 @@ class Student:
                 s.ideology = -100
             if s.ideology > 100 :
                 s.ideology = 100
+
+        return abs(agreement_score)
 
     def set_position(self, x, y):
         self.x = x
