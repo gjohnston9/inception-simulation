@@ -77,6 +77,7 @@ class Model:
         self.expected_abs_student_ideology = expected_abs_student_ideology
         self.expected_abs_speaker_ideology = expected_abs_speaker_ideology
         self.speaker_range = speaker_range
+        self.experiment_name = experiment_name
 
         # Initializes a square array where each element is None. The agent objects will take the place
         # of these positions and "move" throughout the simulation.
@@ -184,8 +185,10 @@ class Model:
         return num_polarized
 
     def run_model(self):
-        for t in range(500):
-            print("At timestep %d" % (t))
+        num_steps = 500
+        for t in range(num_steps):
+            if t % 100 == 0:
+                print("At timestep {} of {} for experiment {}".format(t, num_steps, self.experiment_name))
             self.step(t)
         self.write_final_log_portion()
 
