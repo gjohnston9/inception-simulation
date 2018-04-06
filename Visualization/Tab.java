@@ -85,7 +85,7 @@ public class Tab
 	}
 	public void paint()
 	{
-		TimeSlice t = timeSlices.get(Math.min(index, timeSlices.size()-1));
+		TimeSlice t = timeSlices.get(Math.min(Math.max(0, index), timeSlices.size()-1));
 		chart.getChildren().clear();
 		chart.getChildren().add(base);
 		t.applyTo(chart);
