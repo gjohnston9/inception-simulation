@@ -160,6 +160,11 @@ public class Tab
 				double c = Double.parseDouble(parts[2]);
 				base.getChildren().add(Style.formatCircle(Globals.gridPadding + cellwidth*x, Globals.gridPadding + cellheight*y, cellwidth-Globals.gridPadding*2, cellheight-Globals.gridPadding*2,
 					Globals.toColor(Globals.getColor(c)), true));
+				if(parts.length == 5)
+				{
+					base.getChildren().add(Style.formatLabel(Globals.toString(Integer.parseInt(parts[4])), Globals.gridPadding + cellwidth*x, Globals.gridPadding + cellheight*y, cellwidth-Globals.gridPadding*2, cellheight-Globals.gridPadding*2,
+						Globals.getDiplomacyColor(Double.parseDouble(parts[3])), Globals.labelSize));
+				}
 			}
 			timeSlices = new ArrayList<>();
 			try

@@ -60,6 +60,22 @@ public class Style
 			b.setRotate(-90);
 		return b;
 	}
+	public static  Label formatLabel(String label, double x, double y, double w, double h, int[] fill, int size)
+	{
+		Label b = new Label(label);
+		b.setLayoutX(x);
+		b.setLayoutY(y);
+		b.setPrefWidth(w);
+		b.setMinWidth(w);
+		b.setMaxWidth(w);
+		b.setPrefHeight(h);
+		b.setMaxHeight(h);
+		b.setMinHeight(h);
+		b.setStyle("-fx-font-size: "+ size +
+			"; -fx-text-fill: #"+rgbToHex(fill)+";");
+		b.setAlignment(Pos.CENTER);
+		return b;
+	}
 	public static Rectangle formatRectangle(double x, double y, double w, double h, Color fill)
 	{
 		Rectangle b = new Rectangle();
