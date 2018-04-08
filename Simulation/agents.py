@@ -1,7 +1,13 @@
 import math
 
-def find_agreement(abs_difference, y_intercept=5, slope_factor=1, vertical_shift=1):
+def find_agreement(diplomacy, abs_difference, y_intercept=5, slope_factor=1, vertical_shift=1):
     # slope_factor should be > 0
+    original_diplomacy = diplomacy
+    diplomacy = diplomacy / 100
+    vertical_shift = vertical_shift - diplomacy
+    diplomacy = diplomacy / 2
+    slope_factor = slope_factor - diplomacy
+    # print("diplomacy: {}, vertical_shift: {}, slope_factor: {}".format(original_diplomacy, vertical_shift, slope_factor))
     abs_difference = abs_difference / 20
     return (2 / (1 + math.exp(slope_factor*(abs_difference - y_intercept)))) - vertical_shift
 
@@ -16,8 +22,9 @@ class Speaker:
     def interacts_with(self, student):
         # print("student's initial ideology: {}".format(student.ideology))
         abs_difference = abs(self.ideology - student.ideology)
-        # print("abs_difference: {}".format(abs_difference))
-        agreement_score = find_agreement(abs_difference)
+        # print("abs_difference: {}".format(abs_difference)
+        agreement_score = find_agreement(self.diplomacy, abs_difference)
+        # print("speaker and student: self.ideology: {}, other student ideology: {}, agreement_score: {}\n".format(self.ideology, student.ideology, agreement_score))
         if (self.ideology < student.ideology):
             agreement_score *= -1
 
@@ -56,11 +63,14 @@ class Student:
         # print("student's initial ideology: {}".format(student.ideology))
         abs_difference = abs(self.ideology - student.ideology)
         # print("abs_difference: {}".format(abs_difference))
-        agreement_score = find_agreement(abs_difference)
+        agreement_score_other = find_agreement(self.diplomacy, abs_difference)
+        agreement_score_self = find_agreement(student.diplomacy, abs_difference)
+        # print("student and student: self.ideology: {}, other student ideology: {}, agreement_score: {}\n".format(self.ideology, student.ideology, agreement_score))
+        
     
         # each student will move towards the mean
-        self_change = agreement_score / 2
-        other_change = agreement_score / 2
+        self_change = agreement_score_self / 2
+        other_change = agreement_score_other / 2
         if (self.ideology < student.ideology):
             other_change *= -1
         else:
@@ -75,7 +85,7 @@ class Student:
             if s.ideology > 100 :
                 s.ideology = 100
 
-        return abs(agreement_score)
+        return (abs(self_change) + abs(other_change))
 
     def set_position(self, x, y):
         self.x = x
