@@ -17,7 +17,7 @@ class Speaker:
         self.y = None
         self.ideology = max(-100, min(100, ideology))
         self.diplomacy = max(0, min(100, diplomacy))
-        self.uid = "Speaker_" + str(uid + 1)
+        self.uid = uid
 
     def interacts_with(self, student):
         # print("student's initial ideology: {}".format(student.ideology))
@@ -46,10 +46,10 @@ class Speaker:
         self.y = y
 
     def __str__(self):
-        return "({},{},{})".format(self.x, self.y, self.ideology)
+        return "({},{},{},{},{})".format(self.x, self.y, self.ideology, self.diplomacy, self.uid)
 
     def __repr__(self):
-        return "Speaker: ({},{},{})".format(self.x, self.y, self.ideology)
+        return "Speaker: ({},{},{},{},{})".format(self.x, self.y, self.ideology, self.diplomacy, self.uid)
 
 class Student:
     def __init__(self, ideology, diplomacy, uid):
@@ -57,7 +57,7 @@ class Student:
         self.y = None
         self.ideology = max(-100, min(100, ideology))
         self.diplomacy = max(0, min(100, diplomacy))
-        self.uid = "Student_" + str(uid + 1)
+        self.uid = uid
 
     def interacts_with(self, student):
         # print("student's initial ideology: {}".format(student.ideology))
@@ -92,7 +92,7 @@ class Student:
         self.y = y
 
     def __str__(self):
-        return "({},{},{})".format(self.x, self.y, self.ideology)
+        return "({},{},{},{},{})".format(self.x, self.y, self.ideology, self.diplomacy, self.uid)
 
     def __repr__(self):
-        return "Student: ({},{},{})".format(self.x, self.y, self.ideology)
+        return "Student: ({},{},{},{},{})".format(self.x, self.y, self.ideology, self.diplomacy, self.uid)
