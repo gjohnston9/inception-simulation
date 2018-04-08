@@ -173,7 +173,7 @@ class Model:
             f.write("speakers\n")
 
             for speaker in self.speakers:
-                f.write("({},{},{})\n".format(speaker.x, speaker.y, speaker.ideology))
+                f.write("({},{},{},{},{})\n".format(speaker.x, speaker.y, speaker.ideology, speaker.diplomacy, speaker.uid))
 
             f.write("begin\n")
 
