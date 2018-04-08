@@ -43,6 +43,8 @@ public class TimeSlice
 		{
 			pane.getChildren().add(Style.formatCircle(Globals.gridPadding + cellwidth*p.x, Globals.gridPadding + cellheight*p.y, cellwidth-Globals.gridPadding*2, cellheight-Globals.gridPadding*2,
 				Globals.toColor(Globals.getColor(p.v))));
+			pane.getChildren().add(Style.formatLabel(p.label, Globals.gridPadding + cellwidth*p.x, Globals.gridPadding + cellheight*p.y, cellwidth-Globals.gridPadding*2, cellheight-Globals.gridPadding*2,
+						Globals.getDiplomacyColor(p.diplomacy), Globals.labelSize));
 		}
 	}
 	public class Person
@@ -50,11 +52,18 @@ public class TimeSlice
 		public final int x;
 		public final int y;
 		public final double v;
+		public double diplomacy = 0;
+		public String label = "";
 		public Person(String... parts)
 		{
 			this.x = Integer.parseInt(parts[0]);
 			this.y = Integer.parseInt(parts[1]);
 			this.v = Double.parseDouble(parts[2]);
+			if(parts.length == 5)
+			{
+				this.diplomacy = Double.parseDouble(parts[3]);
+				label = Globals.toString(Integer.parseInt(parts[4]));
+			}
 		}
 	}
 }

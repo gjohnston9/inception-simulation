@@ -19,8 +19,8 @@ high_ideologies *= np.random.choice([-1,1], size=num_samples)
 bins = np.linspace(-100, 100, 40)
 
 fig, ax = plt.subplots()
-ax.hist(low_ideologies, bins=bins, color='red', alpha=0.5, label='average of absolute value of ideology: {}'.format(ideologies[0]))
-ax.hist(high_ideologies, bins=bins, color='green', alpha=0.5, label='average of absolute value of ideology: {}'.format(ideologies[1]))
+ax.hist(low_ideologies, bins=bins, color='yellow', alpha=0.5, label='average of absolute value of ideology: {}'.format(ideologies[0]))
+ax.hist(high_ideologies, bins=bins, color='blue', alpha=0.5, label='average of absolute value of ideology: {}'.format(ideologies[1]))
 
 ax.set(
 	title='frequency of ideology scores',

@@ -35,6 +35,9 @@ public class Globals
 	public static final int[] chartLineColor = {24, 24, 54};
 	public static final int pointDiameter = 11;
 	public static final int[] pointColor = {150, 150, 200};
+	public static final int maxDiplomacy = 100;
+	public static final int labelSize = 12;
+	private static final String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 	//computed constants
 	public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final double width = screenSize.getWidth();
@@ -72,8 +75,25 @@ public class Globals
 		b /= total;
 		return new int[]{(int)(minColor[0]*b + maxColor[0]*a), (int)(minColor[1]*b + maxColor[1]*a), (int)(minColor[2]*b + maxColor[2]*a)};
 	}
+	public static int[] getDiplomacyColor(double val)
+	{
+		int b = (int)(val*255/maxDiplomacy);
+		return new int[]{b,b,b};
+	}
 	public static Color toColor(int... color)
 	{
 		return Color.rgb(color[0], color[1], color[2]);
+	}
+	public static String toString(int t)
+	{
+		String label = "";
+		if(t == 0)
+			return ""+chars.charAt(0);
+		while(t > 0)
+		{
+			label = label + chars.charAt(t%chars.length());
+			t = t / chars.length();
+		}
+		return label;
 	}
 }
