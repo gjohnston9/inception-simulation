@@ -1,15 +1,14 @@
 import math
 
-def find_agreement(diplomacy, abs_difference, y_intercept=5, slope_factor=1, vertical_shift=1):
+def find_agreement(diplomacy, abs_difference, y_intercept=5, slope_factor=1, vertical_shift=-2):
     # slope_factor should be > 0
     original_diplomacy = diplomacy
-    diplomacy = diplomacy / 100
-    vertical_shift = vertical_shift - diplomacy
-    diplomacy = diplomacy / 2
+    vertical_shift = vertical_shift + (diplomacy/50)
+    diplomacy = diplomacy / 200
     slope_factor = slope_factor - diplomacy
     # print("diplomacy: {}, vertical_shift: {}, slope_factor: {}".format(original_diplomacy, vertical_shift, slope_factor))
     abs_difference = abs_difference / 20
-    return (2 / (1 + math.exp(slope_factor*(abs_difference - y_intercept)))) - vertical_shift
+    return (2 / (1 + math.exp(slope_factor*(abs_difference - y_intercept)))) + vertical_shift
 
 class Speaker:
     def __init__(self, ideology, diplomacy, uid):
