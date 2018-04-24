@@ -1,5 +1,9 @@
 *.vis
 
+# Presentation Materials
+Presentation-Materials/
+Presentation-Materials.zip
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
