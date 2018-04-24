@@ -1,5 +1,13 @@
 *.vis
 
+# Experiment Results
+population_density_high_speaker_ideology_low_student_ideology_logs/
+population_density_low_speaker_ideology_high_student_ideology_logs/
+speaker_diplomacy_high_speaker_ideology_low_student_ideology_logs/
+speaker_diplomacy_low_speaker_ideology_high_student_ideology_logs/
+Presentation-Materials/
+Presentation-Materials.zip
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

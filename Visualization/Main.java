@@ -31,7 +31,7 @@ public class Main extends Application
 		scene.getStylesheets().add("style.css");
 		stage.setScene(scene);
 		stage.setTitle("Visualizer");
-		stage.setMaximized(true);
+		stage.setMaximized(false);
 		stage.show();
 	}
 }
