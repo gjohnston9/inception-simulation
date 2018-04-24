@@ -1,5 +1,7 @@
 import math
 
+# Determines the sigmoid function shape and output value based on given diplomacy and 
+# absolute difference
 def find_agreement(diplomacy, abs_difference, y_intercept=5, slope_factor=1, vertical_shift=-2):
     # slope_factor should be > 0
     original_diplomacy = diplomacy
